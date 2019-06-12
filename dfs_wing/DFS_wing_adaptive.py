@@ -12,7 +12,7 @@ from numpy import linalg as LA
 comm_world = omega_h.world()
 mesh_osh = omega_h.gmsh_read_file(omega_h.path('wing_naca_3D_18.msh'), comm_world)
 mesh_osh.balance()
-mesh_osh.set_parting(omega_h.GHOSTED, 0)
+mesh_osh.set_parting(omega_h.GHOSTED, 1)
 omega_h.add_implied_metric_tag(mesh_osh)
 mesh_osh.set_parting(omega_h.ELEM_BASED, 0)
 
@@ -153,7 +153,7 @@ while(i < maxiter):
 	omega_h.function_from_dolfin(mesh_osh, u_._cpp_object, "u")
 	 
 	# Set up metric, adaptivity parameters
-	mesh_osh.set_parting(omega_h.GHOSTED, 0);
+	mesh_osh.set_parting(omega_h.GHOSTED, 1);
 	metric_input = omega_h.MetricInput()
 	source = omega_h.MetricSource(omega_h.VARIATION, 2e-3, "u")
 	metric_input.add_source(source)

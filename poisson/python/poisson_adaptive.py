@@ -13,7 +13,7 @@ import PyOmega_h as omega_h;
 comm_osh = omega_h.world()
 mesh_osh = omega_h.build_box(comm_osh, omega_h.Family.SIMPLEX, 1.0, 1.0, 0.0, 32, 32, 0)
 mesh_osh.balance()
-mesh_osh.set_parting(omega_h.GHOSTED, 0)
+mesh_osh.set_parting(omega_h.GHOSTED, 1)
 omega_h.add_implied_metric_tag(mesh_osh)
 mesh_osh.set_parting(omega_h.ELEM_BASED, 0)
 
@@ -56,7 +56,7 @@ while(i < maxiter):
     omega_h.function_from_dolfin(mesh_osh, u._cpp_object, "u")
  
     # Set up metric, adaptivity parameters
-    mesh_osh.set_parting(omega_h.GHOSTED, 0);
+    mesh_osh.set_parting(omega_h.GHOSTED, 1);
     metric_input = omega_h.MetricInput()
     source = omega_h.MetricSource(omega_h.VARIATION, 2e-3, "u")
     metric_input.add_source(source)
